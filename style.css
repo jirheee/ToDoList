@@ -6,13 +6,17 @@
     --ios-gray5: #2C2C2E;
     --ios-gray6: #1C1C1E;
     --ios-blue: #0A84FF;
+    --ios-red: rgb(255,69,58);
+    --ios-green: rgb(48, 209, 88);
 }
 
-#todo-entry-box{
-    margin: 4px;
+#search-box{
+    margin: 10px 0px 4px 0px;
     border-radius: 10px;
     border: none;
-    padding: 0px 10px;
+    height: 20px;
+    padding: 0px 9px;
+    font-family:Arial, FontAwesome
 }
 
 body {
@@ -20,7 +24,13 @@ body {
     background-color:black;
 }
 
-.todo-wrapper > h2 {
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-wrapper h2 {
     margin: 0px;
     color: var(--ios-blue);
 }
@@ -30,28 +40,32 @@ body {
     border-radius: 20px;
     border-style:none;
     padding: 30px;
+    max-width: 500px;
 }
 
-#todo-header-description{
-    margin-top:0px;
-    color:var(--ios-gray1);
-}
+
 
 .pretty-button {
     background-color: var(--ios-gray4);
-
     margin: 3px;
     border:none;
     border-radius: 10px;
     padding: 0.5rem 1rem;
-
     font-weight: bold;
-    
     color: white;
+    cursor:pointer;
 }
 
-#todo-entry-box {
-    display:inline;
+#clear-completed-button {
+    background-color: var(--ios-blue);
+}
+
+#empty-button {
+    background-color: var(--ios-red);
+}
+
+#save-button {
+    background-color: var(--ios-green);
 }
 
 .container {
@@ -59,27 +73,168 @@ body {
 }
 
 #form-wrapper{
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr;
 }
 
 #control-wrapper{
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.todo-item{
+.todo-item-wrapper {
+    display: flex;
+}
+
+.todo-item {
     border-bottom: 1px var(--ios-gray3) solid;
     padding: 3px 5px;
     margin: 3px;
+    width: 100%;
     font-size: small;
     color: white;
+    display: box;
 }
 
-#todo-list input {
-    /* opacity: 0; */
+.todo-item.completed{
+    font-style: italic;
+    text-decoration: line-through;
+    color: var(--ios-gray1);
+}
+
+.todo-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 0px solid transparent;
+    margin: -5px 0px 0px -5px;
+}
+
+.checkmark.checked {
+    background-color: white;
+}
+
+.checkmark-border {
+    position: relative;
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.checkmark:hover {
+    background-color: #ccc;
 }
 
 #todo-list {
-    padding-inline-start: 20px;
+    margin: 5px 0px;
+    padding: 0;
     border-radius: 10px;
     list-style: none;
+}
+
+#add-button {
+    background-color: transparent;
+    display: inline;
+    border: none;
+    color: var(--ios-blue);
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    cursor:pointer;
+}
+
+#box-top {
+    align-items:stretch;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#add-modal.modal-overlay {
+    position:absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#add-modal .modal-window {
+    background: var(--ios-gray6);
+    border-radius: 10px;
+    border: none;
+    width: fit-content;
+    height: fit;
+    position: relative;
+    top: 10px;
+    padding: 10px;
+}
+#add-modal .title {
+    padding-left: 10px;
+    display: inline;
+    color: var(--ios-blue);
+    
+}
+#add-modal .title h2 {
+    display: inline;
+}
+#add-modal .close-area {
+    display: inline;
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+
+#add-modal .todo-entry-box {
+    border-radius: 5px;
+    margin-left: 7px;
+    padding: 0px 7px;
+    border: none;
+}
+
+#add-modal .name-input-set {
+    margin: 5px 10px 0px 7px;
+    color: white;
+    display: grid;
+    font-size: small;
+    padding: 3px 3px;
+    grid-template-columns: 1fr 4fr;
+}
+
+#add-modal #modal-content-wrapper {
+    grid-template-rows: 1fr 1fr 1fr 1.7fr;
+}
+
+#add-modal #add-modal-btn-wrapper {
+    margin-top: 5px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#add-modal #add-button-modal {
+    background-color: var(--ios-red);
+
+}
+
+#add-modal #cancel-button-modal {
+    background-color: var(--ios-green);
 }

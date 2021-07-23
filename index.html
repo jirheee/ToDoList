@@ -4,33 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <title>ToDoList</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <title>Todo-List</title>
 </head>
 
 <body>
-    <div class="todo-wrapper">
-        <h2>My to-do list</h2>
 
-        <p id="todo-header-description">Double-Click an item to mark it complete</p>
+    <div class="box">
+        <div class="todo-wrapper">
+            <div class="box" id="box-top">
+                <h2>Todo-List</h2>
+                <input type="button" id="add-button" value="+">
+            </div>
 
-        <form name="todo-adder"></form>
-        <div class="container" id="form-wrapper">
-            <input type="text" id="todo-entry-box">
-            <button id="add-button" class="pretty-button" type="button">Add</button>
+            <form name="todo-adder"></form>
+            <div class="container" id="form-wrapper">
+                <input type="text" id="search-box" , placeholder="&#xF002; Search">
+            </div>
+            </form>
+
+            <ul id="todo-list">
+
+            </ul>
+
+            <div id="control-wrapper" class="container">
+                <button id="clear-completed-button" class="pretty-button">Clear Completed</button>
+                <button id="empty-button" class="pretty-button">Empty List</button>
+                <button id="save-button" class="pretty-button">Save List</button>
+            </div>
         </div>
-        </form>
-        <ul id="todo-list">
 
-        </ul>
-
-        <div id="control-wrapper" class="container">
-            <button id="clear-completed-button" class="pretty-button">Clear Completed</button>
-            <button id="empty-button" class="pretty-button">Empty List</button>
-            <button id="save-button" class="pretty-button">Save List</button>
-        </div>
-
-        <script src="script.js"></script>
     </div>
+
+    <div id="add-modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>New Todo</h2>
+            </div>
+
+            <div class="container" id="modal-content-wrapper">
+                <div id="name" class="name-input-set">
+                    Name
+                    <input type="text" id="todo-name-entry-box" class="todo-entry-box">
+                </div>
+
+                <div id="date" class="name-input-set">
+                    Date
+                    <input type="date" id="todo-date-entry-box" class="todo-entry-box">
+                </div>
+
+                <div id="time" class="name-input-set">
+                    Time
+                    <input type="time" id="todo-time-entry-box" class="todo-entry-box">
+                </div>
+
+                <div id="add-modal-btn-wrapper">
+                    <input type="button" value="Add" class="pretty-button" id="add-button-modal">
+                    <input type="button" value="Cancel" class="pretty-button" id="cancel-button-modal">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+
 </body>
 
 </html>
