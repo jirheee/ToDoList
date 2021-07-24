@@ -1,9 +1,7 @@
 let addModal = document.getElementById("add-modal");
 
 let closeBtnModal = addModal.querySelector("#cancel-button-modal");
-closeBtnModal.addEventListener("click", e => {
-    addModal.style.display = "none"
-})
+closeBtnModal.addEventListener("click", closeAddModal)
 
 let addButtonModal = addModal.querySelector("#add-button-modal");
 addButtonModal.addEventListener("click", addToDoItem);
@@ -51,6 +49,14 @@ function addToDoItem() {
         return
     }
     newToDoItem(name, date, time, false);
+    closeAddModal()
+}
+
+function closeAddModal() {
+    addModal.style.display = "none";
+    addModal.querySelector("#todo-name-entry-box").value = "";
+    addModal.querySelector("#todo-date-entry-box").value = "";
+    addModal.querySelector("#todo-time-entry-box").value = "";
 }
 
 function newToDoItem(name, date, time, completed) {
