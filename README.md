@@ -1,10 +1,8 @@
 # ToDoList
----
 This is my first website, **ios-like-Todo-List**, made using basic `HTML`, `CSS`, `Javascript`.
 I refered ios reminder app for the design.
 
 ## Functionalities
----
 ### 1. Add new Todo
 Add new todo by opening a modal window. Date and time box is not implemented.
 
