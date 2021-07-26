@@ -1,14 +1,14 @@
 let addModal = document.getElementById("add-modal");
 
 let closeBtnModal = addModal.querySelector("#cancel-button-modal");
-closeBtnModal.addEventListener("click", closeAddModal)
+closeBtnModal.addEventListener("click", closeAddModal);
 
 let addButtonModal = addModal.querySelector("#add-button-modal");
 addButtonModal.addEventListener("click", addToDoItem);
 
 let addButton = document.getElementById("add-button");
 addButton.addEventListener("click", e => {
-    addModal.style.display = "flex"
+  addModal.style.display = "flex";
 });
 
 let clearCompletedButton = document.getElementById("clear-completed-button");
@@ -28,123 +28,124 @@ searchBox.addEventListener("keyup", filter);
 loadList();
 
 function filter() {
-    let searchText = this.value.trim();
+  let searchText = this.value.trim();
 
-    for (let item of document.getElementsByClassName("todo-item")) {
-        if (!item.textContent.includes(searchText)) {
-            item.parentNode.style.display = "none"
-        } else {
-            item.parentNode.style.display = "flex"
-        }
+  for (let item of document.getElementsByClassName("todo-item")) {
+    if (!item.textContent.includes(searchText)) {
+      item.parentNode.style.display = "none";
+    } else {
+      item.parentNode.style.display = "flex";
     }
+  }
 }
 
 function addToDoItem() {
-    let name = addModal.querySelector("#todo-name-entry-box").value.trim();
-    let date = addModal.querySelector("#todo-date-entry-box").value;
-    let time = addModal.querySelector("#todo-time-entry-box").value;
+  let name = addModal.querySelector("#todo-name-entry-box").value.trim();
+  let date = addModal.querySelector("#todo-date-entry-box").value;
+  let time = addModal.querySelector("#todo-time-entry-box").value;
 
-    if (name === "") {
-        alert("Invalid Input: No Empty Todo Allowed")
-        return
-    }
-    newToDoItem(name, date, time, false);
-    closeAddModal()
+  if (name === "") {
+    alert("Invalid Input: No Empty Todo Allowed");
+    return;
+  }
+  newToDoItem(name, date, time, false);
+  closeAddModal();
 }
 
 function closeAddModal() {
-    addModal.style.display = "none";
-    addModal.querySelector("#todo-name-entry-box").value = "";
-    addModal.querySelector("#todo-date-entry-box").value = "";
-    addModal.querySelector("#todo-time-entry-box").value = "";
+  addModal.style.display = "none";
+  addModal.querySelector("#todo-name-entry-box").value = "";
+  addModal.querySelector("#todo-date-entry-box").value = "";
+  addModal.querySelector("#todo-time-entry-box").value = "";
 }
 
 function newToDoItem(name, date, time, completed) {
+  let toDoItemWrapper = document.createElement("div");
+  toDoItemWrapper.classList.add("todo-item-wrapper");
 
-    let toDoItemWrapper = document.createElement("div");
-    toDoItemWrapper.classList.add("todo-item-wrapper");
+  let checkMarkBorder = document.createElement("span");
+  checkMarkBorder.classList.add("checkmark-border");
+  toDoItemWrapper.appendChild(checkMarkBorder);
 
-    let checkMarkBorder = document.createElement("span");
-    checkMarkBorder.classList.add("checkmark-border")
-    toDoItemWrapper.appendChild(checkMarkBorder);
+  let checkMark = document.createElement("span");
+  checkMark.classList.add("checkmark");
+  checkMarkBorder.appendChild(checkMark);
+  checkMark.addEventListener("click", checkMarkClicked);
 
-    let checkMark = document.createElement("span");
-    checkMark.classList.add("checkmark");
-    checkMarkBorder.appendChild(checkMark);
-    checkMark.addEventListener("click", checkMarkClicked)
+  let toDoItem = document.createElement("li");
+  toDoItem.classList.add("todo-item");
+  toDoItemWrapper.appendChild(toDoItem);
 
+  let toDoText = document.createTextNode(name);
+  toDoItem.appendChild(toDoText);
 
-    let toDoItem = document.createElement("li");
-    toDoItem.classList.add("todo-item");
-    toDoItemWrapper.appendChild(toDoItem);
+  if (completed) {
+    toDoItem.classList.add("completed");
+    checkMark.classList.add("checked");
+  }
 
-    let toDoText = document.createTextNode(name);
-    toDoItem.appendChild(toDoText);
-
-
-    if (completed) {
-        toDoItem.classList.add("completed");
-        checkMark.classList.add("checked")
-    }
-
-    toDoList.appendChild(toDoItemWrapper);
+  toDoList.appendChild(toDoItemWrapper);
 }
 
 function checkMarkClicked() {
-    let li = this.parentNode.nextElementSibling;
-    if (li.classList.contains("completed")) {
-        li.classList.remove("completed")
-        this.classList.remove("checked")
-    } else {
-        li.classList.add("completed")
-        this.classList.add("checked")
-    }
+  let li = this.parentNode.nextElementSibling;
+  if (li.classList.contains("completed")) {
+    li.classList.remove("completed");
+    this.classList.remove("checked");
+  } else {
+    li.classList.add("completed");
+    this.classList.add("checked");
+  }
 }
 
 function clearCompletedToDoItems() {
-    let completedItems = toDoList.getElementsByClassName("completed");
+  let completedItems = toDoList.getElementsByClassName("completed");
 
-    console.log(completedItems);
+  console.log(completedItems);
 
-    while (completedItems.length > 0) {
-        completedItems.item(0).parentNode.remove();
-    }
+  while (completedItems.length > 0) {
+    completedItems.item(0).parentNode.remove();
+  }
 }
 
 function emptyList() {
-    let toDoItems = toDoList.children;
-    while (toDoItems.length > 0) {
-        toDoItems.item(0).remove();
-    }
+  let toDoItems = toDoList.children;
+  while (toDoItems.length > 0) {
+    toDoItems.item(0).remove();
+  }
 }
 
 function saveList() {
-    let toDos = [];
+  let toDos = [];
 
-    for (let i = 0; i < toDoList.children.length; i++) {
-        let toDo = toDoList.children.item(i).querySelector("li");
+  for (let i = 0; i < toDoList.children.length; i++) {
+    let toDo = toDoList.children.item(i).querySelector("li");
 
-        console.log(toDo.innerText);
+    console.log(toDo.innerText);
 
-        let toDoInfo = {
-            "task": toDo.innerText,
-            "completed": toDo.classList.contains("completed"),
-            "date": null,
-            "time": null,
-        };
-        toDos.push(toDoInfo);
-    }
+    let toDoInfo = {
+      task: toDo.innerText,
+      completed: toDo.classList.contains("completed"),
+      date: null,
+      time: null
+    };
+    toDos.push(toDoInfo);
+  }
 
-    localStorage.setItem("toDos", JSON.stringify(toDos));
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 
-    alert("Todo List Saved!")
+  alert("Todo List Saved!");
 }
 
-
 function loadList() {
-    let savedList = JSON.parse(localStorage.getItem("toDos"));
+  let savedList = JSON.parse(localStorage.getItem("toDos"));
 
-    for (const todoItem of savedList) {
-        newToDoItem(todoItem.task, todoItem.date, todoItem.time, todoItem.completed)
-    }
+  for (const todoItem of savedList) {
+    newToDoItem(
+      todoItem.task,
+      todoItem.date,
+      todoItem.time,
+      todoItem.completed
+    );
+  }
 }
